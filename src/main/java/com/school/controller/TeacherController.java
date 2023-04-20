@@ -1,10 +1,14 @@
 package com.school.controller;
 
+import com.school.dto.SubjectDTO;
+import com.school.dto.SubjectInstanceDTO;
 import com.school.dto.TeacherDTO;
 import com.school.service.TeacherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("teachers")
@@ -24,12 +28,13 @@ public class TeacherController {
 
     @GetMapping("/{teacherId}")
     public ResponseEntity<TeacherDTO> getTeacher(@PathVariable Long teacherId) {
-        TeacherDTO createdTeacherDTO = teacherService.getTeacher(teacherId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdTeacherDTO);
+        TeacherDTO teacherDTO = teacherService.getTeacher(teacherId);
+        return ResponseEntity.ok(teacherDTO);
     }
 
     @PutMapping("/{teacherId}")
-    public ResponseEntity<TeacherDTO> updateTeacher(@PathVariable Long teacherId, @RequestBody TeacherDTO teacherDTO) {
+    public ResponseEntity<TeacherDTO> updateTeacher(@PathVariable Long teacherId,
+                                                    @RequestBody TeacherDTO teacherDTO) {
         TeacherDTO updatedTeacherDTO = teacherService.updateTeacher(teacherId, teacherDTO);
         return ResponseEntity.ok(updatedTeacherDTO);
     }
@@ -38,5 +43,19 @@ public class TeacherController {
     public ResponseEntity<Void> deleteTeacher(@PathVariable Long teacherId) {
         teacherService.deleteTeacher(teacherId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{teacherId}/subjects")
+    public ResponseEntity<List<SubjectDTO>> getTeacherSubjects(@PathVariable Long teacherId) {
+        List<SubjectDTO> teacherSubjectDTOs = teacherService.getTeacherSubjects(teacherId);
+        return ResponseEntity.ok(teacherSubjectDTOs);
+    }
+
+    @GetMapping("/{teacherId}/subjectInstances")
+    public ResponseEntity<List<SubjectInstanceDTO>> getTeacherSubjectInstances(@PathVariable Long teacherId,
+                                                                       @RequestParam Long schoolYearId) {
+        List<SubjectInstanceDTO> teacherSubjectInstanceDTOs =
+                teacherService.getTeacherSubjectInstances(teacherId, schoolYearId);
+        return ResponseEntity.ok(teacherSubjectInstanceDTOs);
     }
 }

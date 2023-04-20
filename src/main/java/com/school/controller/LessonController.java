@@ -24,8 +24,8 @@ public class LessonController {
 
     @GetMapping("/{lessonId}")
     public ResponseEntity<LessonDTO> getLesson(@PathVariable Long lessonId) {
-        LessonDTO createdLessonDTO = lessonService.getLesson(lessonId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdLessonDTO);
+        LessonDTO lessonDTO = lessonService.getLesson(lessonId);
+        return ResponseEntity.ok(lessonDTO);
     }
 
     @PutMapping("/{lessonId}")

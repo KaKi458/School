@@ -24,8 +24,8 @@ public class StudentClassController {
 
     @GetMapping("/{studentClassId}")
     public ResponseEntity<StudentClassDTO> getStudentClass(@PathVariable Long studentClassId) {
-        StudentClassDTO createdStudentClassDTO = studentClassService.getStudentClass(studentClassId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdStudentClassDTO);
+        StudentClassDTO studentClassDTO = studentClassService.getStudentClass(studentClassId);
+        return ResponseEntity.ok(studentClassDTO);
     }
 
     @PutMapping("/{studentClassId}")

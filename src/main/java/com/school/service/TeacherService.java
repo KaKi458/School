@@ -1,6 +1,6 @@
 package com.school.service;
 
-import com.school.dto.MarkDTO;
+import com.school.dto.SubjectDTO;
 import com.school.dto.SubjectInstanceDTO;
 import com.school.dto.TeacherDTO;
 
@@ -13,5 +13,6 @@ public interface TeacherService {
     TeacherDTO updateTeacher(Long teacherId, TeacherDTO teacherDTO);
     void deleteTeacher(Long teacherId);
     List<TeacherDTO> getAllTeachers();
-    List<SubjectInstanceDTO> getTeacherSubjectInstances(Long teacherId);
+    List<SubjectDTO> getTeacherSubjects(Long teacherId);
+    List<SubjectInstanceDTO> getTeacherSubjectInstances(Long teacherId, Long schoolYearId);
 }

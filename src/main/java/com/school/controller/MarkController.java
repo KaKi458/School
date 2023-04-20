@@ -24,8 +24,8 @@ public class MarkController {
 
     @GetMapping("/{markId}")
     public ResponseEntity<MarkDTO> getMark(@PathVariable Long markId) {
-        MarkDTO createdMarkDTO = markService.getMark(markId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdMarkDTO);
+        MarkDTO markDTO = markService.getMark(markId);
+        return ResponseEntity.ok(markDTO);
     }
 
     @PutMapping("/{markId}")

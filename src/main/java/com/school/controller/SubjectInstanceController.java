@@ -24,8 +24,8 @@ public class SubjectInstanceController {
 
     @GetMapping("/{subjectInstanceId}")
     public ResponseEntity<SubjectInstanceDTO> getSubjectInstance(@PathVariable Long subjectInstanceId) {
-        SubjectInstanceDTO createdSubjectInstanceDTO = subjectInstanceService.getSubjectInstance(subjectInstanceId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdSubjectInstanceDTO);
+        SubjectInstanceDTO subjectInstanceDTO = subjectInstanceService.getSubjectInstance(subjectInstanceId);
+        return ResponseEntity.ok(subjectInstanceDTO);
     }
 
     @PutMapping("/{subjectInstanceId}")
