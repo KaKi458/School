@@ -26,4 +26,8 @@ public class StudentClass {
     private List<Student> students;
     @OneToMany(mappedBy = "studentClass")
     private List<SubjectInstance> subjectInstances;
+
+    public List<Teacher> getTeachers() {
+        return subjectInstances.stream().map(SubjectInstance::getTeacher).toList();
+    }
 }

@@ -1,7 +1,9 @@
 package com.school.controller;
 
 import com.school.dto.*;
+import com.school.service.AuthorizationService;
 import com.school.service.StudentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,14 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("students")
 public class StudentController {
 
     private final StudentService studentService;
-
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
 
     @PostMapping
     public ResponseEntity<StudentDTO> addStudent(@RequestBody StudentDTO studentDTO) {

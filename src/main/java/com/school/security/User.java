@@ -19,8 +19,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-    private Long correspondingId;
+    private Long id;
     private String firstname;
     private String lastname;
     private String email;
@@ -61,9 +60,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    enum Role {
-        STUDENT, TEACHER, HEADMASTER
     }
 }
