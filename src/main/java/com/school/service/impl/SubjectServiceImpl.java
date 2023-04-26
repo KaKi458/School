@@ -16,27 +16,27 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public SubjectDTO getSubject(Long subjectId) {
+    public SubjectDTO getSubject(long subjectId) {
         return null;
     }
 
     @Override
-    public SubjectDTO updateSubject(Long subjectId, SubjectDTO subjectDTO) {
+    public SubjectDTO updateSubject(long subjectId, SubjectDTO subjectDTO) {
         return null;
     }
 
     @Override
-    public void deleteSubject(Long subjectId) {
+    public void deleteSubject(long subjectId) {
 
     }
 
     @Override
-    public List<TeacherDTO> getSubjectTeachers(Long subjectId) {
+    public List<TeacherDTO> getSubjectTeachers(long subjectId) {
         return null;
     }
 
     @Override
-    public List<SubjectInstanceDTO> getSubjectInstances(Long subjectId, Long schoolYearId) {
+    public List<SubjectInstanceDTO> getSubjectInstances(long subjectId, long schoolYearId) {
         return null;
     }
 }

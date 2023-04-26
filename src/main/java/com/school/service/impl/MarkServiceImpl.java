@@ -13,17 +13,17 @@ public class MarkServiceImpl implements MarkService {
     }
 
     @Override
-    public MarkDTO getMark(Long markId) {
+    public MarkDTO getMark(long markId) {
         return null;
     }
 
     @Override
-    public MarkDTO updateMark(Long markId, MarkDTO markDTO) {
+    public MarkDTO updateMark(long markId, MarkDTO markDTO) {
         return null;
     }
 
     @Override
-    public void deleteMark(Long markId) {
+    public void deleteMark(long markId) {
 
     }
 }

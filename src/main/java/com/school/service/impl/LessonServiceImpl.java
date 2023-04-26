@@ -13,17 +13,17 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public LessonDTO getLesson(Long lessonId) {
+    public LessonDTO getLesson(long lessonId) {
         return null;
     }
 
     @Override
-    public LessonDTO updateLesson(Long lessonId, LessonDTO lessonDTO) {
+    public LessonDTO updateLesson(long lessonId, LessonDTO lessonDTO) {
         return null;
     }
 
     @Override
-    public void deleteLesson(Long lessonId) {
+    public void deleteLesson(long lessonId) {
 
     }
 }

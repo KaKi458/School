@@ -16,27 +16,27 @@ public class StudentClassServiceImpl implements StudentClassService {
     }
 
     @Override
-    public StudentClassDTO getStudentClass(Long studentClassId) {
+    public StudentClassDTO getStudentClass(long studentClassId) {
         return null;
     }
 
     @Override
-    public StudentClassDTO updateStudentClass(Long studentClassId, StudentClassDTO studentClassDTO) {
+    public StudentClassDTO updateStudentClass(long studentClassId, StudentClassDTO studentClassDTO) {
         return null;
     }
 
     @Override
-    public void deleteStudentClass(Long studentClassId) {
+    public void deleteStudentClass(long studentClassId) {
 
     }
 
     @Override
-    public List<StudentDTO> getAllStudentsInClass(Long studentClassId) {
+    public List<StudentDTO> getAllStudentsInClass(long studentClassId) {
         return null;
     }
 
     @Override
-    public List<SubjectInstance> getAllSubjectInstancesOfClass(Long studentClassId) {
+    public List<SubjectInstance> getAllSubjectInstancesOfClass(long studentClassId) {
         return null;
     }
 }

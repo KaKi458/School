@@ -9,10 +9,10 @@ import java.util.List;
 public interface TeacherService {
 
     TeacherDTO addTeacher(TeacherDTO teacherDTO);
-    TeacherDTO getTeacher(Long teacherId);
-    TeacherDTO updateTeacher(Long teacherId, TeacherDTO teacherDTO);
-    void deleteTeacher(Long teacherId);
+    TeacherDTO getTeacher(long teacherId);
+    TeacherDTO updateTeacher(long teacherId, TeacherDTO teacherDTO);
+    void deleteTeacher(long teacherId);
     List<TeacherDTO> getAllTeachers();
-    List<SubjectDTO> getTeacherSubjects(Long teacherId);
-    List<SubjectInstanceDTO> getTeacherSubjectInstances(Long teacherId, Long schoolYearId);
+    List<SubjectDTO> getTeacherSubjects(long teacherId);
+    List<SubjectInstanceDTO> getTeacherSubjectInstances(long teacherId, long schoolYearId);
 }

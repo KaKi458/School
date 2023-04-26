@@ -13,7 +13,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +29,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO getStudent(Long studentId) {
+    public StudentDTO getStudent(long studentId) {
 
         if (!authorizationService.authorizeStudentOrTeacher(studentId)) {
             throw new AccessDeniedException("Access denied for student with given id");
@@ -40,22 +39,22 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO updateStudent(Long studentId, StudentDTO studentDTO) {
+    public StudentDTO updateStudent(long studentId, StudentDTO studentDTO) {
         return null;
     }
 
     @Override
-    public void deleteStudent(Long studentId) {
+    public void deleteStudent(long studentId) {
 
     }
 
     @Override
-    public List<SubjectInstanceDTO> getStudentSubjectInstances(Long studentId) {
+    public List<SubjectInstanceDTO> getStudentSubjectInstances(long studentId) {
         return null;
     }
 
     @Override
-    public List<MarkDTO> getRecentStudentMarks(Long studentId) {
+    public List<MarkDTO> getRecentStudentMarks(long studentId) {
 
         if (!authorizationService.authorizeStudentOrClassTeacher(studentId)) {
             throw new AccessDeniedException("Access denied for student with given id");
@@ -66,7 +65,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<MarkDTO> getStudentMarksInSubjectInstance(Long studentId, Long subjectInstanceId) {
+    public List<MarkDTO> getStudentMarksInSubjectInstance(long studentId, long subjectInstanceId) {
 
         if (!authorizationService.authorizeStudentOrSubjectTeacher(studentId, subjectInstanceId)) {
             throw new AccessDeniedException("Access denied for student with given id");
@@ -74,8 +73,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = findStudent(studentId);
         List<SubjectInstance> subjectInstances = student.getCurrentClass().getSubjectInstances();
         subjectInstances.stream()
-                .map(SubjectInstance::getId)
-                .filter(id -> Objects.equals(id, subjectInstanceId))
+                .filter(si -> si.getId() == subjectInstanceId)
                 .findAny().orElseThrow(() -> new SchoolApiException(
                         HttpStatus.BAD_REQUEST,
                         "Student with id "+studentId+" does not attend subject with id "+subjectInstanceId));
@@ -88,7 +86,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<AbsenceDTO> getStudentAbsences(Long studentId) {
+    public List<AbsenceDTO> getStudentAbsences(long studentId) {
 
         if (!authorizationService.authorizeStudentOrClassTeacher(studentId)) {
             throw new AccessDeniedException("Access denied for student with given id");
@@ -99,7 +97,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentClassDTO> getStudentPreviousClasses(Long studentId) {
+    public List<StudentClassDTO> getStudentPreviousClasses(long studentId) {
 
         if (!authorizationService.authorizeStudentOrClassTeacher(studentId)) {
             throw new AccessDeniedException("Access denied for student with given id");
@@ -110,7 +108,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<SubjectInstanceDTO> getStudentPreviousClassSubjectInstances(Long studentId, Long studentClassId) {
+    public List<SubjectInstanceDTO> getStudentPreviousClassSubjectInstances(long studentId, long studentClassId) {
 
         if (!authorizationService.authorizeStudentOrClassTeacher(studentId)) {
             throw new AccessDeniedException("Access denied for student with given id");
@@ -118,7 +116,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = findStudent(studentId);
         List<StudentClass> previousClasses = student.getPreviousStudentClasses();
         StudentClass previousClass = previousClasses.stream()
-                .filter(sc -> Objects.equals(sc.getId(), studentClassId))
+                .filter(sc -> sc.getId() == studentClassId)
                 .findAny().orElseThrow(() -> new SchoolApiException(
                         HttpStatus.BAD_REQUEST,
                         "Student with id: "+studentId+" does not attend class with id: "+studentClassId));
@@ -127,7 +125,7 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
-    private Student findStudent(Long studentId) {
+    private Student findStudent(long studentId) {
         return studentRepository.findById(studentId)
                 .orElseThrow(() -> new SchoolApiException(
                         HttpStatus.NOT_FOUND, "Student with given id does not exist"));

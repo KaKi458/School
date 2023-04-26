@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -29,18 +28,18 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private final SubjectInstanceRepository subjectInstanceRepository;
 
     @Override
-    public boolean authorizeStudentOrClassTeacher(Long studentId) {
+    public boolean authorizeStudentOrClassTeacher(long studentId) {
 
         User user = findUser();
 
         switch (user.getRole()) {
             case STUDENT -> {
-                return Objects.equals(studentId, user.getId());
+                return studentId == user.getId();
             }
             case TEACHER -> {
                 Student student = findStudent(studentId);
                 Teacher classTeacher = student.getCurrentClass().getTeacher();
-                return Objects.equals(classTeacher.getId(), user.getId());
+                return (long)classTeacher.getId() == user.getId();
             }
             case HEADMASTER -> {
                 return true;
@@ -52,12 +51,12 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Override
-    public boolean authorizeTeacher(Long teacherId) {
+    public boolean authorizeTeacher(long teacherId) {
         return false;
     }
 
     @Override
-    public boolean authorizeStudentOrTeacher(Long studentId) {
+    public boolean authorizeStudentOrTeacher(long studentId) {
 
         User user = findUser();
         if (user.getRole() != Role.TEACHER) {
@@ -71,7 +70,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Override
-    public boolean authorizeStudentOrSubjectTeacher(Long studentId, Long subjectInstanceId) {
+    public boolean authorizeStudentOrSubjectTeacher(long studentId, long subjectInstanceId) {
 
         User user = findUser();
         if (user.getRole() != Role.TEACHER) {
@@ -90,19 +89,19 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         return (User) authentication.getPrincipal();
     }
 
-    private Student findStudent(Long studentId) {
+    private Student findStudent(long studentId) {
         return studentRepository.findById(studentId)
                 .orElseThrow(() -> new SchoolApiException(
                         HttpStatus.NOT_FOUND, "Student with given ID does not exist"));
     }
 
-    private Teacher findTeacher(Long teacherId) {
+    private Teacher findTeacher(long teacherId) {
         return teacherRepository.findById(teacherId)
                 .orElseThrow(() -> new SchoolApiException(
                         HttpStatus.NOT_FOUND, "Teacher with given ID does not exist"));
     }
 
-    private SubjectInstance findSubjectInstance(Long subjectInstanceId) {
+    private SubjectInstance findSubjectInstance(long subjectInstanceId) {
         return subjectInstanceRepository.findById(subjectInstanceId)
                 .orElseThrow(() -> new SchoolApiException(
                         HttpStatus.NOT_FOUND, "Subject Instance with given ID does not exist"));

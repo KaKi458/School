@@ -13,17 +13,17 @@ public class SubjectInstanceServiceImpl implements SubjectInstanceService {
     }
 
     @Override
-    public SubjectInstanceDTO getSubjectInstance(Long subjectInstanceId) {
+    public SubjectInstanceDTO getSubjectInstance(long subjectInstanceId) {
         return null;
     }
 
     @Override
-    public SubjectInstanceDTO updateSubjectInstance(Long subjectInstanceId, SubjectInstanceDTO subjectInstanceDTO) {
+    public SubjectInstanceDTO updateSubjectInstance(long subjectInstanceId, SubjectInstanceDTO subjectInstanceDTO) {
         return null;
     }
 
     @Override
-    public void deleteSubjectInstance(Long subjectInstanceId) {
+    public void deleteSubjectInstance(long subjectInstanceId) {
 
     }
 }

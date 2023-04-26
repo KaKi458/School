@@ -7,7 +7,7 @@ import java.util.List;
 public interface SubjectInstanceService {
 
     SubjectInstanceDTO addSubjectInstance(SubjectInstanceDTO subjectInstanceDTO);
-    SubjectInstanceDTO getSubjectInstance(Long subjectInstanceId);
-    SubjectInstanceDTO updateSubjectInstance(Long subjectInstanceId, SubjectInstanceDTO subjectInstanceDTO);
-    void deleteSubjectInstance(Long subjectInstanceId);
+    SubjectInstanceDTO getSubjectInstance(long subjectInstanceId);
+    SubjectInstanceDTO updateSubjectInstance(long subjectInstanceId, SubjectInstanceDTO subjectInstanceDTO);
+    void deleteSubjectInstance(long subjectInstanceId);
 }

@@ -9,9 +9,9 @@ import java.util.List;
 public interface SubjectService {
     
     SubjectDTO addSubject(SubjectDTO subjectDTO);
-    SubjectDTO getSubject(Long subjectId);
-    SubjectDTO updateSubject(Long subjectId, SubjectDTO subjectDTO);
-    void deleteSubject(Long subjectId);
-    List<TeacherDTO> getSubjectTeachers(Long subjectId);
-    List<SubjectInstanceDTO> getSubjectInstances(Long subjectId, Long schoolYearId);
+    SubjectDTO getSubject(long subjectId);
+    SubjectDTO updateSubject(long subjectId, SubjectDTO subjectDTO);
+    void deleteSubject(long subjectId);
+    List<TeacherDTO> getSubjectTeachers(long subjectId);
+    List<SubjectInstanceDTO> getSubjectInstances(long subjectId, long schoolYearId);
 }
