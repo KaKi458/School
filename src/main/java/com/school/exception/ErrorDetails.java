@@ -1,16 +1,16 @@
 package com.school.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatusCode;
+import java.time.LocalDateTime;
 
-import java.util.Date;
-
-@AllArgsConstructor
 @Getter
 public class ErrorDetails {
 
-    private Date timestamp;
-    private HttpStatusCode httpStatusCode;
-    private String message;
+    private final LocalDateTime timestamp;
+    private final String message;
+
+    public ErrorDetails(String message) {
+        this.message = message;
+        timestamp = LocalDateTime.now();
+    }
 }

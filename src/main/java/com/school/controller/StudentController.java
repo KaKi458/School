@@ -1,7 +1,6 @@
 package com.school.controller;
 
 import com.school.dto.*;
-import com.school.service.AuthorizationService;
 import com.school.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -55,8 +54,9 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}/subjectInstances/{subjectInstanceId}/marks")
-    public ResponseEntity<List<MarkDTO>> getStudentMarksInSubjectInstance(@PathVariable Long studentId,
-                                                                          @PathVariable Long subjectInstanceId) {
+    public ResponseEntity<List<MarkDTO>> getStudentMarksInSubjectInstance(
+            @PathVariable Long studentId,
+            @PathVariable Long subjectInstanceId) {
         List<MarkDTO> markDTOs = studentService.getStudentMarksInSubjectInstance(studentId, subjectInstanceId);
         return ResponseEntity.ok(markDTOs);
     }

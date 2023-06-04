@@ -16,8 +16,10 @@ public class Absence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private Student student;
+
     @ManyToOne
     private Lesson lesson;
 }

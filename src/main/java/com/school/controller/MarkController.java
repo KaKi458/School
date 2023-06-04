@@ -1,6 +1,7 @@
 package com.school.controller;
 
 import com.school.dto.MarkDTO;
+import com.school.model.MarkValue;
 import com.school.service.MarkService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +29,9 @@ public class MarkController {
         return ResponseEntity.ok(markDTO);
     }
 
-    @PutMapping("/{markId}")
-    public ResponseEntity<MarkDTO> updateMark(@PathVariable Long markId, @RequestBody MarkDTO markDTO) {
-        MarkDTO updatedMarkDTO = markService.updateMark(markId, markDTO);
+    @PatchMapping("/{markId}")
+    public ResponseEntity<MarkDTO> updateMark(@PathVariable Long markId, @RequestBody MarkValue markValue) {
+        MarkDTO updatedMarkDTO = markService.updateMark(markId, markValue);
         return ResponseEntity.ok(updatedMarkDTO);
     }
 

@@ -18,10 +18,13 @@ public class Semester {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private SchoolYear schoolYear;
+
     @Enumerated(EnumType.STRING)
     private SemesterType semesterType;
+
     @OneToMany(mappedBy = "semester")
     private List<SubjectInstance> subjectInstanceList;
 

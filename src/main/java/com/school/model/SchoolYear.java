@@ -19,14 +19,19 @@ public class SchoolYear {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column
     private Date startDate;
+
     @Column
     private Date endDate;
+
     @OneToOne
     private Semester winterSemester;
+
     @OneToOne
     private Semester summerSemester;
+
     @OneToMany(mappedBy = "schoolYear")
     private List<StudentClass> studentClassList;
 }

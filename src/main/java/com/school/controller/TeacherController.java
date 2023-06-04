@@ -3,6 +3,7 @@ package com.school.controller;
 import com.school.dto.SubjectDTO;
 import com.school.dto.SubjectInstanceDTO;
 import com.school.dto.TeacherDTO;
+import com.school.dto.UserDTO;
 import com.school.service.TeacherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,9 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<TeacherDTO> addTeacher(@RequestBody TeacherDTO teacherDTO) {
-        TeacherDTO createdTeacherDTO = teacherService.addTeacher(teacherDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdTeacherDTO);
+    public ResponseEntity<UserDTO> addTeacher(@RequestBody TeacherDTO teacherDTO) {
+        UserDTO createdUserDTO = teacherService.addTeacher(teacherDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUserDTO);
     }
 
     @GetMapping("/{teacherId}")

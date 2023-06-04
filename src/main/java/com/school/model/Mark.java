@@ -1,16 +1,18 @@
 package com.school.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Mark {
@@ -18,12 +20,22 @@ public class Mark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
-    private Date date;
+
+    @Enumerated(EnumType.ORDINAL)
+    private MarkValue value;
+
+    @CreationTimestamp
+    private LocalDateTime createdTimestamp;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedTimestamp;
+
     @ManyToOne
     private Teacher teacher;
+
     @ManyToOne
     private Student student;
+
     @ManyToOne
     private SubjectInstance subjectInstance;
 }

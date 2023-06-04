@@ -5,7 +5,7 @@ import com.school.exception.SchoolApiException;
 import com.school.model.*;
 import com.school.repository.MarkRepository;
 import com.school.repository.StudentRepository;
-import com.school.service.AuthorizationService;
+import com.school.security.AuthorizationService;
 import com.school.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -59,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
         if (!authorizationService.authorizeStudentOrClassTeacher(studentId)) {
             throw new AccessDeniedException("Access denied for student with given id");
         }
-        List<Mark> recentMarks = markRepository.findFirst20ByStudentIdOrderByDateDesc(studentId);
+        List<Mark> recentMarks = markRepository.findFirst20ByStudentIdOrderByUpdatedTimestampDesc(studentId);
 
         return null;
     }
@@ -79,7 +79,7 @@ public class StudentServiceImpl implements StudentService {
                         "Student with id "+studentId+" does not attend subject with id "+subjectInstanceId));
 
         List<Mark> studentMarks =
-                markRepository.findByStudentIdAndSubjectInstanceIdOrderByDateDesc(
+                markRepository.findByStudentIdAndSubjectInstanceIdOrderByUpdatedTimestampDesc(
                         studentId, subjectInstanceId);
 
         return null;

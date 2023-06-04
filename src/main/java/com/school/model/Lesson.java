@@ -19,12 +19,16 @@ public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column
     private Date date;
+
     @ManyToOne
     private SubjectInstance subjectInstance;
+
     @ManyToOne
     private Teacher teacher;
+
     @OneToMany(mappedBy = "lesson")
     private List<Absence> absences;
 }

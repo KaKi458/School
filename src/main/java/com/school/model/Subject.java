@@ -18,8 +18,12 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "taughtSubjects")
     private List<Teacher> teachers;
+
     @OneToMany(mappedBy = "subject")
     private List<SubjectInstance> instances;
 }

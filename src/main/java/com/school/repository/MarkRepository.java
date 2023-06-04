@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MarkRepository extends JpaRepository<Mark, Long> {
 
-    List<Mark> findFirst20ByStudentIdOrderByDateDesc(Long studentId);
-    List<Mark> findByStudentIdAndSubjectInstanceIdOrderByDateDesc(Long studentId, Long subjectInstanceId);
+    List<Mark> findFirst20ByStudentIdOrderByUpdatedTimestampDesc(Long studentId);
+    List<Mark> findByStudentIdAndSubjectInstanceIdOrderByUpdatedTimestampDesc(Long studentId, Long subjectInstanceId);
 }

@@ -1,32 +1,25 @@
 package com.school.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import org.springframework.context.annotation.Bean;
 
 @Getter
 @Setter
 @Builder
-public class TeacherDTO {
+public class UserDTO {
 
-    private Long teacherId;
+    private Long userId;
 
-    @JsonProperty(required = true)
     private String firstName;
 
-    @JsonProperty(required = true)
     private String lastName;
 
     @JsonProperty(required = true)
     private String email;
 
-    private Long classId;
-
     @JsonProperty(required = true)
-    private List<String> taughtSubjects;
+    private String password;
 }

@@ -18,7 +18,8 @@ public class SubjectInstanceServiceImpl implements SubjectInstanceService {
     }
 
     @Override
-    public SubjectInstanceDTO updateSubjectInstance(long subjectInstanceId, SubjectInstanceDTO subjectInstanceDTO) {
+    public SubjectInstanceDTO updateSubjectInstance(
+            long subjectInstanceId, SubjectInstanceDTO subjectInstanceDTO) {
         return null;
     }
 

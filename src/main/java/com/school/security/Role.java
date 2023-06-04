@@ -1,5 +1,5 @@
 package com.school.security;
 
 public enum Role {
-    STUDENT, TEACHER, HEADMASTER
+    STUDENT, TEACHER, ADMIN
 }

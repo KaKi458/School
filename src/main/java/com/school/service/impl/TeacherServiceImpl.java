@@ -3,12 +3,15 @@ package com.school.service.impl;
 import com.school.dto.SubjectDTO;
 import com.school.dto.SubjectInstanceDTO;
 import com.school.dto.TeacherDTO;
+import com.school.dto.UserDTO;
 import com.school.exception.SchoolApiException;
 import com.school.mapper.Mapper;
 import com.school.model.Subject;
 import com.school.model.SubjectInstance;
 import com.school.model.Teacher;
+import com.school.repository.SubjectRepository;
 import com.school.repository.TeacherRepository;
+import com.school.security.AuthenticationService;
 import com.school.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,11 +24,37 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
     
     private final TeacherRepository teacherRepository;
+    private final SubjectRepository subjectRepository;
     private final Mapper mapper;
+    private final AuthenticationService authenticationService;
     
     @Override
-    public TeacherDTO addTeacher(TeacherDTO teacherDTO) {
-        return null;
+    public UserDTO addTeacher(TeacherDTO teacherDTO) {
+
+        List<Subject> subjects = teacherDTO.getTaughtSubjects()
+                .stream().map(this::findSubject).toList();
+
+        Teacher teacher = Teacher.builder()
+                .firstname(teacherDTO.getFirstName())
+                .lastname(teacherDTO.getLastName())
+                .email(teacherDTO.getEmail())
+                .taughtSubjects(subjects)
+                .build();
+
+        String[] password = authenticationService.generatePassword();
+        teacher.setPassword(password[1]);
+
+        Teacher savedTeacher = teacherRepository.save(teacher);
+
+        UserDTO userDTO = UserDTO.builder()
+                .userId(savedTeacher.getId())
+                .firstName(savedTeacher.getFirstname())
+                .lastName(savedTeacher.getLastname())
+                .email(savedTeacher.getEmail())
+                .password(savedTeacher.getPassword())
+                .build();
+
+        return userDTO;
     }
 
     @Override
@@ -73,5 +102,11 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherRepository.findById(teacherId)
                 .orElseThrow(() -> new SchoolApiException(
                         HttpStatus.NOT_FOUND, "Teacher with given ID does not exist"));
+    }
+
+    private Subject findSubject(String subject) {
+        return subjectRepository.findByName(subject)
+                .orElseThrow(() -> new SchoolApiException(
+                        HttpStatus.NOT_FOUND, "Subject with name "+subject+" does not exist"));
     }
 }

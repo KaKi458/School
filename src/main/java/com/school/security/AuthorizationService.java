@@ -1,16 +1,12 @@
-package com.school.service.impl;
+package com.school.security;
 
 import com.school.exception.SchoolApiException;
 import com.school.model.Student;
 import com.school.model.SubjectInstance;
 import com.school.model.Teacher;
-import com.school.repository.MarkRepository;
 import com.school.repository.StudentRepository;
 import com.school.repository.SubjectInstanceRepository;
 import com.school.repository.TeacherRepository;
-import com.school.security.Role;
-import com.school.security.User;
-import com.school.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -21,13 +17,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AuthorizationServiceImpl implements AuthorizationService {
+public class AuthorizationService {
 
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
     private final SubjectInstanceRepository subjectInstanceRepository;
 
-    @Override
     public boolean authorizeStudentOrClassTeacher(long studentId) {
 
         User user = findUser();
@@ -41,7 +36,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                 Teacher classTeacher = student.getCurrentClass().getTeacher();
                 return (long)classTeacher.getId() == user.getId();
             }
-            case HEADMASTER -> {
+            case ADMIN -> {
                 return true;
             }
             default -> {
@@ -50,12 +45,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
     }
 
-    @Override
     public boolean authorizeTeacher(long teacherId) {
         return false;
     }
 
-    @Override
     public boolean authorizeStudentOrTeacher(long studentId) {
 
         User user = findUser();
@@ -69,7 +62,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
     }
 
-    @Override
     public boolean authorizeStudentOrSubjectTeacher(long studentId, long subjectInstanceId) {
 
         User user = findUser();

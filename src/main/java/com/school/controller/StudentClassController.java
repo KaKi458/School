@@ -29,7 +29,9 @@ public class StudentClassController {
     }
 
     @PutMapping("/{studentClassId}")
-    public ResponseEntity<StudentClassDTO> updateStudentClass(@PathVariable Long studentClassId, @RequestBody StudentClassDTO studentClassDTO) {
+    public ResponseEntity<StudentClassDTO> updateStudentClass(
+            @PathVariable Long studentClassId,
+            @RequestBody StudentClassDTO studentClassDTO) {
         StudentClassDTO updatedStudentClassDTO = studentClassService.updateStudentClass(studentClassId, studentClassDTO);
         return ResponseEntity.ok(updatedStudentClassDTO);
     }

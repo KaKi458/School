@@ -4,6 +4,7 @@ import com.school.exception.SchoolApiException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -16,34 +17,31 @@ import java.util.Date;
 
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
-    @Value("${application.jwt.secret}")
+    @Value("${app.jwt.secret}")
     private String jwtSecret;
 
-    @Value("${application.jwt.expiration}")
+    @Value("${app.jwt.expiration}")
     private String jwtExpiration;
 
-    private final UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
-    public JwtService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-    public String generateToken(Authentication authentication) {
+    public JwtToken generateToken(Authentication authentication) {
 
         String username = authentication.getName();
         Date currentDate = new Date();
-        Date expireDate = new Date(currentDate.getTime() + jwtExpiration);
+        Date expireDate = new Date(currentDate.getTime() + Long.parseLong(jwtExpiration));
 
         String jwtToken = Jwts.builder()
                 .setSubject(username)
-                .setIssuedAt(new Date())
+                .setIssuedAt(currentDate)
                 .setExpiration(expireDate)
                 .signWith(key())
                 .compact();
 
-        return jwtToken;
+        return new JwtToken(jwtToken);
     }
 
     public boolean validateToken(String token) {
@@ -75,12 +73,14 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(jwtToken)
                 .getBody();
+
         return claims;
     }
 
     private String getUsername(String jwtToken) {
         Claims claims = extractClaims(jwtToken);
         String username = claims.getSubject();
+
         return username;
     }
 
