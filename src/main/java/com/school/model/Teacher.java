@@ -14,9 +14,15 @@ import static jakarta.persistence.InheritanceType.JOINED;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-@Inheritance(strategy = JOINED)
-public class Teacher extends User {
+@Builder
+public class Teacher {
+
+    @Id
+    private Long id;
+
+    private String firstname;
+
+    private String lastname;
 
     @ManyToMany
     @JoinTable(

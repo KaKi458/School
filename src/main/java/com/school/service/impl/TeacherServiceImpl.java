@@ -12,6 +12,9 @@ import com.school.model.Teacher;
 import com.school.repository.SubjectRepository;
 import com.school.repository.TeacherRepository;
 import com.school.security.AuthenticationService;
+import com.school.security.Role;
+import com.school.security.User;
+import com.school.security.UserRepository;
 import com.school.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +27,7 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
     
     private final TeacherRepository teacherRepository;
+    private final UserRepository userRepository;
     private final SubjectRepository subjectRepository;
     private final Mapper mapper;
     private final AuthenticationService authenticationService;
@@ -31,30 +35,41 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public UserDTO addTeacher(TeacherDTO teacherDTO) {
 
+        if (userRepository.existsByEmail(teacherDTO.getEmail())) {
+            throw new SchoolApiException(HttpStatus.BAD_REQUEST, "User with given email already exists");
+        }
+
+        String[] password = authenticationService.generatePassword();
+
+        User user = User.builder()
+                .email(teacherDTO.getEmail())
+                .firstname(teacherDTO.getFirstName())
+                .lastname(teacherDTO.getLastName())
+                .role(Role.TEACHER)
+                .password(password[1])
+                .build();
+
+        User savedUser = userRepository.save(user);
+
         List<Subject> subjects = teacherDTO.getTaughtSubjects()
                 .stream().map(this::findSubject).toList();
 
         Teacher teacher = Teacher.builder()
+                .id(savedUser.getId())
                 .firstname(teacherDTO.getFirstName())
                 .lastname(teacherDTO.getLastName())
-                .email(teacherDTO.getEmail())
                 .taughtSubjects(subjects)
                 .build();
 
-        String[] password = authenticationService.generatePassword();
-        teacher.setPassword(password[1]);
-
         Teacher savedTeacher = teacherRepository.save(teacher);
 
-        UserDTO userDTO = UserDTO.builder()
+        return UserDTO.builder()
                 .userId(savedTeacher.getId())
                 .firstName(savedTeacher.getFirstname())
                 .lastName(savedTeacher.getLastname())
-                .email(savedTeacher.getEmail())
-                .password(savedTeacher.getPassword())
+                .email(savedUser.getEmail())
+                .password(savedUser.getPassword())
                 .build();
-
-        return userDTO;
     }
 
     @Override

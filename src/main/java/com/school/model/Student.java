@@ -1,22 +1,25 @@
 package com.school.model;
 
-import com.school.security.User;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-import static jakarta.persistence.InheritanceType.JOINED;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-@Inheritance(strategy = JOINED)
-public class Student extends User {
+@Builder
+public class Student {
+
+    @Id
+    private Long id;
+
+    private String firstname;
+
+    private String lastname;
 
     @ManyToOne
     private StudentClass currentClass;

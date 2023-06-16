@@ -58,7 +58,6 @@ public class MapperImpl implements Mapper {
                 .teacherId(teacher.getId())
                 .firstName(teacher.getFirstname())
                 .lastName(teacher.getLastname())
-                .email(teacher.getEmail())
                 .classId(teacher.getCurrentClass() != null ?
                         teacher.getCurrentClass().getId() : null)
                 .build();

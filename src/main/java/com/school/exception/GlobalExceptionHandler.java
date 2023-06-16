@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     
     @ExceptionHandler(Exception.class)
     public ResponseEntity<HttpStatus> handleException(Exception ex) {
-        log.error("Unhandled exception occurred. {}", ex.getMessage());
+        log.error("Unhandled exception occurred. ", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
@@ -92,13 +92,13 @@ public class GlobalExceptionHandler {
                 new ErrorDetails(errorMessage));
     }
     
-    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
-    public ResponseEntity<ErrorDetails> handleException(HttpMediaTypeNotAcceptableException ex) {
-        log.error("Unsupported media-type exception occurred. {}", ex.getMessage());
-        return ResponseEntity.status(ex.getStatusCode())
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorDetails(ex.getMessage() + ". Supported media types: " + ex.getSupportedMediaTypes()));
-    }
+//    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
+//    public ResponseEntity<ErrorDetails> handleException(HttpMediaTypeNotAcceptableException ex) {
+//        log.error("Unsupported media-type exception occurred. {}", ex.getMessage());
+//        return ResponseEntity.status(ex.getStatusCode())
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .body(new ErrorDetails(ex.getMessage() + ". Supported media types: " + ex.getSupportedMediaTypes()));
+//    }
     
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<ErrorDetails> handleException(HttpMediaTypeNotSupportedException ex) {

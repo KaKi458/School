@@ -2,7 +2,6 @@ package com.school.security;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,19 +14,19 @@ import java.util.Collections;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
+@Builder
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
-    protected String firstname;
-    protected String lastname;
-    protected String email;
-    protected String password;
+    private Long id;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String password;
 
     @Enumerated(EnumType.STRING)
-    protected Role role;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

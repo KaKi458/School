@@ -24,15 +24,15 @@ public class JwtService {
     private String jwtSecret;
 
     @Value("${app.jwt.expiration}")
-    private String jwtExpiration;
+    private int jwtExpiration;
 
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     public JwtToken generateToken(Authentication authentication) {
 
         String username = authentication.getName();
         Date currentDate = new Date();
-        Date expireDate = new Date(currentDate.getTime() + Long.parseLong(jwtExpiration));
+        Date expireDate = new Date(currentDate.getTime()  + jwtExpiration);
 
         String jwtToken = Jwts.builder()
                 .setSubject(username)
